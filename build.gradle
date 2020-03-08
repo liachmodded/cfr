@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id "net.kyori.blossom" version "1.1.0"
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+version = 'local'
+
+def ENV = System.getenv()
+if (ENV.BUILD_NUMBER) {
+    version = "0.0.${System.getenv().BUILD_NUMBER}"
+}
+
+group = 'net.fabricmc'
+archivesBaseName = 'cfr'
+
+sourceSets {
+    main {
+        java.srcDirs = ['src', 'src-templates']
+    }
+}
+
+java {
+    withSourcesJar()
+}
+
+blossom {
+    replaceTokenIn 'src-templates/org/benf/cfr/reader/util/CfrVersionInfo.java'
+    replaceToken '${project.version}', project.version
+    replaceToken '${git.commit.id.abbrev}', 'git rev-parse --short HEAD'.execute().text.readLines()[0]
+    replaceToken '${git.dirty}', 'git diff --quiet'.execute().waitFor() == 1
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.benf.cfr.reader.Main'
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+
+    // select the repositories you want to publish to
+    repositories {
+        if (project.hasProperty('mavenPass')) {
+            maven {
+                url = "http://mavenupload.modmuss50.me/"
+                credentials {
+                    username = "buildslave"
+                    password = project.getProperty('mavenPass')
+                }
+            }
+        }
+    }
+}
