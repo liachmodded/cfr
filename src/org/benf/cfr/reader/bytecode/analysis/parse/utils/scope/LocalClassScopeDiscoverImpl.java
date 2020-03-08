@@ -13,6 +13,7 @@ import org.benf.cfr.reader.bytecode.analysis.structured.StructuredStatement;
 import org.benf.cfr.reader.bytecode.analysis.types.InnerClassInfo;
 import org.benf.cfr.reader.bytecode.analysis.types.JavaRefTypeInstance;
 import org.benf.cfr.reader.bytecode.analysis.types.JavaTypeInstance;
+import org.benf.cfr.reader.bytecode.analysis.types.MethodPrototype;
 import org.benf.cfr.reader.bytecode.analysis.variables.NamedVariable;
 import org.benf.cfr.reader.bytecode.analysis.variables.VariableFactory;
 import org.benf.cfr.reader.entities.Method;
@@ -70,6 +71,11 @@ public class LocalClassScopeDiscoverImpl extends AbstractLValueScopeDiscoverer {
 
         @Override
         public Dumper dump(Dumper d, boolean defines) {
+            return null;
+        }
+
+        @Override
+        public Dumper dumpParameter(Dumper d, MethodPrototype methodPrototype, int index, boolean defines) {
             return null;
         }
 
