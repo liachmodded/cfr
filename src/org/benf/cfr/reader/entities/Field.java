@@ -149,6 +149,7 @@ public class Field implements KnowsRawSize, TypeUsageCollectable {
     }
 
     public void dump(Dumper d, String name, ClassFile owner, boolean asRecordField) {
+        d.dumpFieldDoc(this, owner.getClassType()); // fabric
         JavaTypeInstance type = getJavaTypeInstance();
 
         List<AnnotationTableEntry> declarationAnnotations = MiscAnnotations.BasicAnnotations(attributes);

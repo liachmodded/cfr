@@ -56,6 +56,11 @@ public interface Dumper extends MethodErrorCollector {
     @Deprecated // todo add lv, lvt indices and start offset
     Dumper variableName(String name, NamedVariable variable, boolean defines);
 
+    // fabric
+    default Dumper dumpClassDoc(JavaTypeInstance owner) { return this; }
+    default Dumper dumpMethodDoc(MethodPrototype method) { return this; }
+    default Dumper dumpFieldDoc(Field field, JavaTypeInstance owner) { return this; }
+
     Dumper identifier(String name, Object ref, boolean defines);
 
     Dumper print(char c);
