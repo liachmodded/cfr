@@ -17,7 +17,7 @@ import java.io.BufferedOutputStream;
 import java.util.Set;
 
 public class ToStringDumper extends AbstractDumper {
-    private final StringBuilder sb = new StringBuilder();
+    protected final StringBuilder sb = new StringBuilder(); // fabric
     private final TypeUsageInformation typeUsageInformation = new TypeUsageInformationEmpty();
     private final Set<JavaTypeInstance> emitted = SetFactory.newSet();
 
@@ -96,16 +96,19 @@ public class ToStringDumper extends AbstractDumper {
 
     @Override
     public Dumper newln() {
-        sb.append("\n");
-        context.atStart = true;
+        // fabric - add pending cr if possible
+        processPendingCR();
+        context.pendingCR = true;
         context.outputCount++;
         return this;
     }
 
     @Override
     public Dumper endCodeln() {
-        sb.append(";\n");
-        context.atStart = true;
+        // fabric - add pending cr if possible
+        sb.append(";");
+        processPendingCR();
+        context.pendingCR = true;
         context.outputCount++;
         return this;
     }
