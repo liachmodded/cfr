@@ -370,7 +370,7 @@ public class LambdaRewriter implements Op04Rewriter, ExpressionRewriter {
                     String name = original.getName().getStringName();
                     // fabric - custom dump for lambda parameters
                     LocalVariable tmp = new LambdaParameter(name, new InferredJavaType(targetFnArgTypes.get(n), InferredJavaType.Source.EXPRESSION),
-                            lambdaMethod.getMethodPrototype(), original);
+                            lambdaMethod.getMethodPrototype(), n + offset);
                     anonymousLambdaArgs.add(tmp);
                     replacementParameters.add(new LValueExpression(tmp));
                 }

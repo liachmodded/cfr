@@ -17,7 +17,7 @@ public interface NamedVariable extends Dumpable {
     Dumper dump(Dumper d, boolean defines);
 
     // fabric start
-    default Dumper dumpParameter(Dumper d, MethodPrototype prototype, int stackPosition, boolean defines) {
+    default Dumper dumpParameter(Dumper d, MethodPrototype prototype, int index, boolean defines) {
         return dump(d, defines);
     }
 
