@@ -25,7 +25,7 @@ java {
     withSourcesJar()
 }
 
-if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_1_8)) {
+if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_1_9)) {
     tasks.withType(JavaCompile) {
         options.release = 8
     }
